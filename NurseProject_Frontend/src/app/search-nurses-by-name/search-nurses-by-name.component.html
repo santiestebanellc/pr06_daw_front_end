@@ -1,0 +1,34 @@
+<div>
+  <input type="text" placeholder="Name" #nameInput />
+  <button (click)="listFoundNurses(nameInput.value)" id="search-by-name">
+    Search
+  </button>
+</div>
+<table
+  class="table table-bordered"
+  id="nurseByNameResult"
+  *ngIf="foundNurses.length > 0; else noResults"
+>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>First Surname</th>
+      <th>Second Surname</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let nurse of foundNurses">
+      <td>{{ nurse.id }}</td>
+      <td>{{ nurse.name }}</td>
+      <td>{{ nurse.first_surname }}</td>
+      <td>{{ nurse.second_surname }}</td>
+      <td>{{ nurse.email }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noResults>
+  <p>Nurse not found</p>
+</ng-template>
