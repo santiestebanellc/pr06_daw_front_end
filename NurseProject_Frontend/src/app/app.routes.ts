@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { SearchNursesByNameComponent } from './search-nurses-by-name/search-nurses-by-name.component';
-import { MenuComponent } from './menu/menu.component';
 import { AppComponent } from './app.component';
 
 export const routes: Routes = [
