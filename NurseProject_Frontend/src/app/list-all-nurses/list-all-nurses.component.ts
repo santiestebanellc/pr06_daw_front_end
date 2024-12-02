@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-all-nurses',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './list-all-nurses.component.html',
   styleUrl: './list-all-nurses.component.css'
 })
