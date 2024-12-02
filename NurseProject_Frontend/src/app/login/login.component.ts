@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'], // Corregido: styleUrls en plural.
+  imports: [CommonModule, FormsModule],
 })
 export class LoginComponent {
   email: string = '';
