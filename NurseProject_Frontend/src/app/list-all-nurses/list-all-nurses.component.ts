@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NURSE_USERS } from '../nurse-users';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-all-nurses',
@@ -7,5 +9,9 @@ import { Component } from '@angular/core';
   styleUrl: './list-all-nurses.component.css'
 })
 export class ListAllNursesComponent {
+  foundNurses = NURSE_USERS;
 
+  listAllNurses() {
+    this.foundNurses = NURSE_USERS;
+  }
 }
