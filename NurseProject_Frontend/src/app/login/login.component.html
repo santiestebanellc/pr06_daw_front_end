@@ -1,35 +1,28 @@
-<div class="login-container">
-    <h2>Login</h2>
-    
-    <form (ngSubmit)="onSubmit()" >
-      
+<div class="login-container p-4 d-flex flex-column gap-4">
+  <h2>Login</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="d-flex flex-column col-3 gap-4 mb-4">
       <div class="form-group">
         <label for="email">Email</label>
-        <input 
-          type="email" 
-          id="email" 
-          name="email" 
-         
-          class="form-control"
-        />
-      
+        <input type="email" id="email" name="email" class="form-control" />
       </div>
-  
+
       <div class="form-group">
         <label for="password">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-
+        <input
+          type="password"
+          id="password"
+          name="password"
           class="form-control"
         />
-       
       </div>
-  
-      <button type="submit"  class="submit-btn">Login</button>
-      
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    </form>
-  </div>
-  
+    </div>
+
+    <button type="submit" class="submit-btn px-2 rounded-4 border-0 bg-warning">
+      Login
+    </button>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+  </form>
+</div>
