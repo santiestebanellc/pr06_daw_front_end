@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NURSE_USERS } from '../nurse-users';
+import { NURSE_USERS } from '../local-data/nurse-users';
 import { CommonModule } from '@angular/common';
 
 @Component({
