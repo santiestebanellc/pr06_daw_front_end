@@ -4,6 +4,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th class="flex-column align-center">Profile Picture</th>
                 <th>Name</th>
                 <th>First Surname</th>
                 <th>Second Surname</th>
@@ -13,6 +14,9 @@
         <tbody>
             <tr *ngFor="let nurse of foundNurses">
                 <td>{{ nurse.id }}</td>
+                <td class="w-25 d-flex flex-column align-center">
+                    <img src="{{ nurse.profile_pic }}">
+                </td>
                 <td>{{ nurse.name }}</td>
                 <td>{{ nurse.first_surname }}</td>
                 <td>{{ nurse.second_surname }}</td>
