@@ -1,42 +1,49 @@
-<div class="login-container p-4 d-flex flex-column gap-4">
-  <h2>Login</h2>
+<div class="container d-flex justify-content-center align-items-center vh-100 ">
+  <div class="login-container p-5 rounded-4 bg-white col-12 col-md-6 col-lg-4">
+    <!-- Título -->
+    <h2 class="text-center mb-4 text-primary fw-bold">Login</h2>
 
-  <form (ngSubmit)="onSubmit()">
-    <div class="d-flex flex-column col-3 gap-4 mb-4">
-      <div class="form-group">
-        <label for="email">Email</label>
+    <form (ngSubmit)="onSubmit()">
+      <!-- Campo de Email -->
+      <div class="form-group mb-4">
+        <label for="email" class="form-label fw-bold text-muted">Email</label>
         <input
           type="email"
           id="email"
           name="email"
           [(ngModel)]="email"
-          class="form-control"
+          class="form-control shadow-sm border-0 rounded-3 p-3"
+          placeholder="Enter your email"
           required
         />
       </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
+      <!-- Campo de Contraseña -->
+      <div class="form-group mb-4">
+        <label for="password" class="form-label fw-bold text-muted">Password</label>
         <input
           type="password"
           id="password"
           name="password"
           [(ngModel)]="password"
-          class="form-control"
+          class="form-control shadow-sm border-0 rounded-3 p-3"
+          placeholder="Enter your password"
           required
         />
       </div>
-    </div>
 
-    <button
-      type="submit"
-      class="submit-btn px-2 rounded-4 border-0 bg-warning"
-      [disabled]="!email || !password" >
-      Login
-    </button>
+      <!-- Botón de Enviar -->
+      <button
+        type="submit"
+        class="btn btn-warning w-100 fw-bold py-3 rounded-3 shadow-lg mt-2 transition-all"
+        [disabled]="!email || !password">
+        Login
+      </button>
 
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
-  </form>
+      <!-- Mensaje de Error -->
+      <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3 shadow-sm rounded-3">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
 </div>

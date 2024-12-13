@@ -1,0 +1,84 @@
+<div class="container d-flex justify-content-center align-items-center vh-100 ">
+    <div class="login-container p-5 rounded-4 bg-white col-12 col-md-6 col-lg-4">
+      <!-- Título -->
+      <h2 class="text-center mb-4 text-primary fw-bold">Register</h2>
+  
+      <form (ngSubmit)="onSubmit()">
+        <!-- Campo de Nombre -->
+        <div class="form-group mb-4">
+          <label for="name" class="form-label fw-bold text-muted">Full Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            [(ngModel)]="name"
+            class="form-control shadow-sm border-0 rounded-3 p-3"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+  
+        <!-- Campo de Email -->
+        <div class="form-group mb-4">
+          <label for="email" class="form-label fw-bold text-muted">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            class="form-control shadow-sm border-0 rounded-3 p-3"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+  
+        <!-- Campo de Contraseña -->
+        <div class="form-group mb-4">
+          <label for="password" class="form-label fw-bold text-muted">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="password"
+            class="form-control shadow-sm border-0 rounded-3 p-3"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+  
+        <!-- Confirmar Contraseña -->
+        <div class="form-group mb-4">
+          <label for="confirmPassword" class="form-label fw-bold text-muted">Confirm Password</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            [(ngModel)]="confirmPassword"
+            class="form-control shadow-sm border-0 rounded-3 p-3"
+            placeholder="Confirm your password"
+            required
+          />
+        </div>
+  
+        <!-- Botón de Enviar -->
+        <button
+          type="submit"
+          class="btn btn-warning w-100 fw-bold py-3 rounded-3 shadow-lg mt-2 transition-all"
+          [disabled]="!name || !email || !password || password !== confirmPassword">
+          Register
+        </button>
+  
+        <!-- Mensaje de Error -->
+        <div *ngIf="errorMessage" class="alert alert-danger text-center mt-3 shadow-sm rounded-3">
+          {{ errorMessage }}
+        </div>
+  
+        <!-- Mensaje de Éxito -->
+        <div *ngIf="successMessage" class="alert alert-success text-center mt-3 shadow-sm rounded-3">
+          {{ successMessage }}
+        </div>
+      </form>
+  
+    </div>
+  </div>
+  
