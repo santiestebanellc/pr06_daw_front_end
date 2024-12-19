@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NURSE_USERS } from '../local-data/nurse-users';
 import { CommonModule } from '@angular/common';
 import { NursesService } from '../services/nurses.service';
 
@@ -16,6 +15,12 @@ export class SearchNursesByNameComponent implements OnInit {
   // datos obtenidos de services
   nurses_users: any;
 
+  getNursesByParameter(parameter = '', value = '') {
+    this.nurses_users = this.nursesService.getNursesByParameter(
+      parameter,
+      value
+    );
+  }
   ngOnInit(): void {
     this.nurses_users = this.nursesService.getNurses();
   }

@@ -1,5 +1,5 @@
 <div class="p-4 d-flex flex-column gap-4">
-  <h2>Search Nurses by Name</h2>
+  <h2>Search Nurses</h2>
   <div class="d-flex">
     <div class="d-flex gap-2">
       <svg
@@ -14,7 +14,8 @@
         />
       </svg>
       <p>Filter by:</p>
-      <select name="field" id="field" class="px-2 rounded-4 col-2">
+      <select name="field" id="field" #parameter class="px-2 rounded-4 col-2">
+        <option value="id">id</option>
         <option value="name">name</option>
         <option value="first_surname">first surname</option>
         <option value="second_surname">second surname</option>
@@ -24,7 +25,7 @@
     </div>
 
     <button
-      (click)="listFoundNurses(nameInput.value)"
+      (click)="getNursesByParameter(parameter.value, nameInput.value)"
       id="search-by-name"
       class="px-2 rounded-4 border-0 bg-warning"
     >
@@ -34,11 +35,12 @@
   <table
     class="table table-bordered"
     id="nurseByNameResult"
-    *ngIf="foundNurses.length > 0; else noResults"
+    *ngIf="nurses_users.length > 0; else noResults"
   >
     <thead>
       <tr>
         <th>Id</th>
+        <th>Photo</th>
         <th>Name</th>
         <th>First Surname</th>
         <th>Second Surname</th>
@@ -46,8 +48,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let nurse of foundNurses">
+      <tr *ngFor="let nurse of nurses_users">
         <td>{{ nurse.id }}</td>
+        <td>
+          <img
+            src="{{ nurse.profile_pic }}"
+            class="img-fluid rounded"
+            style="width: 50px; height: 50px; object-fit: cover"
+          />
+        </td>
         <td>{{ nurse.name }}</td>
         <td>{{ nurse.first_surname }}</td>
         <td>{{ nurse.second_surname }}</td>
