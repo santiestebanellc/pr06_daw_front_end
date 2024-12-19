@@ -10,16 +10,6 @@ export class NursesService {
 
   nurse_users = NURSE_USERS;
 
-  // searchInNurseUsers(parameter = '', value = '') {
-  //   if (value.trim() !== '') {
-  //     this.nurse_users = NURSE_USERS.filter((nurse) =>
-  //       nurse.parameter.toLowerCase().includes(value.toLowerCase())
-  //     );
-  //   } else {
-  //     this.nurse_users = NURSE_USERS;
-  //   }
-  //   return this.nurse_users;
-  // }
 
   getNursesByParameter(parameter = '', input = '') {
     switch (parameter) {
@@ -73,4 +63,12 @@ export class NursesService {
   getNurses() {
     return this.nurse_users;
   }
+
+ validateLogin(email: string, password: string): boolean {
+    const nurse = this.nurse_users.find(
+      (n) => n.email === email && n.password === password
+    );
+    return !!nurse; 
+  }
+
 }

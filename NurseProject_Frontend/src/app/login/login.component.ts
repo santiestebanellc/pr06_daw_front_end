@@ -1,28 +1,24 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NursesService } from '../services/nurses.service';
+import { CommonModule } from '@angular/common'; 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'], // Corregido: styleUrls en plural.
-  imports: [CommonModule, FormsModule],
+  styleUrls: ['./login.component.css'],
+  imports: [FormsModule , CommonModule],
 })
 export class LoginComponent {
   email: string = '';
   password: string = '';
   errorMessage: string = '';
 
-  users = [
-    { email: 'nurse@example.com', password: '12345' },
-    { email: 'admin@example.com', password: 'adminpass' },
-  ];
+  constructor(private nursesService: NursesService) {}
 
   onSubmit() {
-    const user = this.users.find(
-      (u) => u.email === this.email && u.password === this.password
-    );
-    if (user) {
+    const isValid = this.nursesService.validateLogin(this.email, this.password);
+    if (isValid) {
       this.errorMessage = '';
       alert('Login successful!');
     } else {
