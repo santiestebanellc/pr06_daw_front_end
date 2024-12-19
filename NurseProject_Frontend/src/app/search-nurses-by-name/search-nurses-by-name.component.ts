@@ -1,23 +1,27 @@
-import { Component } from '@angular/core';
-import { NURSE_USERS } from '../local-data/nurse-users';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NursesService } from '../services/nurses.service';
 
 @Component({
   selector: 'app-search-nurses-by-name',
   templateUrl: './search-nurses-by-name.component.html',
   styleUrl: './search-nurses-by-name.component.css',
+  providers: [NursesService],
   imports: [CommonModule],
 })
-export class SearchNursesByNameComponent {
-  foundNurses = NURSE_USERS;
+export class SearchNursesByNameComponent implements OnInit {
+  constructor(private nursesService: NursesService) {}
 
-  listFoundNurses(name: string = ''): void {
-    if (name.trim() !== '') {
-      this.foundNurses = NURSE_USERS.filter((nurse) =>
-        nurse.name.toLowerCase().includes(name.toLowerCase())
-      );
-    } else {
-      this.foundNurses = NURSE_USERS;
-    }
+  // datos obtenidos de services
+  nurses_users: any;
+
+  getNursesByParameter(parameter = '', value = '') {
+    this.nurses_users = this.nursesService.getNursesByParameter(
+      parameter,
+      value
+    );
+  }
+  ngOnInit(): void {
+    this.nurses_users = this.nursesService.getNurses();
   }
 }
