@@ -1,6 +1,6 @@
 <div class="p-4 d-flex flex-column gap-4">
     <h2>List all nurses</h2>
-    <table class="table table-bordered" *ngIf="foundNurses.length > 0; else noResults">
+    <table class="table table-bordered" *ngIf="nurses_users.length > 0; else noResults">
         <thead>
             <tr>
                 <th>Id</th>
@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let nurse of foundNurses">
+            <tr *ngFor="let nurse of nurses_users">
                 <td>{{ nurse.id }}</td>
                 <td class="text-center">
                     <img src="{{ nurse.profile_pic }}" class="img-fluid rounded"
