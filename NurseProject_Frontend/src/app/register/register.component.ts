@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NURSE_USERS } from '../local-data/nurse-users';
-import { NursesService } from '../services/nurses.service';
+import { NursesService } from '../services/nursesService/nurses.service';
 import { Nurse } from '../model/Nurse';
 
 @Component({
