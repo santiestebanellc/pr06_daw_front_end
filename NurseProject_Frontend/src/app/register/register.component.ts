@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NURSE_USERS } from '../local-data/nurse-users';
 import { NursesService } from '../services/nurses.service';
+import { Nurse } from '../model/Nurse';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +27,7 @@ export class RegisterComponent {
     this.errorMessage = '';
     this.successMessage = '';
     let newId = NURSE_USERS.length;
-    const nurseData = {
+    const nurseData: Nurse = {
       id: newId + 1,
       name: this.name,
       first_surname: this.firstSurname,

@@ -66,12 +66,12 @@ export class NursesService {
 
   validateLogin(email: string, password: string): boolean {
     const nurse = NURSE_USERS.find(
-      (n) => n.email === email && n.password === password
+      (nurse) => nurse.email === email && nurse.password === password
     );
     return !!nurse;
   }
 
-  registerNurse(nurseData: any): boolean {
+  registerNurse(nurseData: Nurse): boolean {
     if (
       nurseData &&
       !NURSE_USERS.map((nurse) => nurse.email).includes(nurseData.email)

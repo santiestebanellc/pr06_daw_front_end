@@ -1,4 +1,6 @@
-export const NURSE_USERS = [
+import { Nurse } from '../model/Nurse';
+
+export const NURSE_USERS: Nurse[] = [
   {
     id: 1,
     name: 'Juan',
@@ -6,7 +8,7 @@ export const NURSE_USERS = [
     second_surname: 'López',
     email: 'juan.perez@email.com',
     password: 'a1B2c3D4e5',
-    profile_pic: 'https://avatar.iran.liara.run/public'
+    profile_pic: 'https://avatar.iran.liara.run/public',
   },
   {
     id: 2,
@@ -15,7 +17,7 @@ export const NURSE_USERS = [
     second_surname: 'Hernández',
     email: 'maria.gomez@email.com',
     password: 'F6g7H8i9J0',
-    profile_pic: 'https://avatar.iran.liara.run/public/boy'
+    profile_pic: 'https://avatar.iran.liara.run/public/boy',
   },
   {
     id: 3,
@@ -24,7 +26,7 @@ export const NURSE_USERS = [
     second_surname: 'García',
     email: 'carlos.martinez@email.com',
     password: 'k1L2m3N4o5',
-    profile_pic: 'https://avatar.iran.liara.run/public/14'
+    profile_pic: 'https://avatar.iran.liara.run/public/14',
   },
   {
     id: 4,
@@ -33,7 +35,7 @@ export const NURSE_USERS = [
     second_surname: 'Ruiz',
     email: 'ana.lopez@email.com',
     password: 'P6q7R8s9T0',
-    profile_pic: 'https://avatar.iran.liara.run/public/girl'
+    profile_pic: 'https://avatar.iran.liara.run/public/girl',
   },
   {
     id: 5,
@@ -42,8 +44,7 @@ export const NURSE_USERS = [
     second_surname: 'Pérez',
     email: 'luis.fernandez@email.com',
     password: 'U1v2W3x4Y5',
-    profile_pic: 'https://avatar.iran.liara.run/public/49'
-    
+    profile_pic: 'https://avatar.iran.liara.run/public/49',
   },
   {
     id: 6,
@@ -52,7 +53,7 @@ export const NURSE_USERS = [
     second_surname: 'Mora',
     email: 'sara.ramirez@email.com',
     password: 'Z6a7B8c9D0',
-    profile_pic: 'https://avatar.iran.liara.run/public/94'
+    profile_pic: 'https://avatar.iran.liara.run/public/94',
   },
   {
     id: 7,
@@ -61,7 +62,7 @@ export const NURSE_USERS = [
     second_surname: 'Jiménez',
     email: 'diego.rodriguez@email.com',
     password: 'E1f2G3h4I5',
-    profile_pic: 'https://avatar.iran.liara.run/public/8'
+    profile_pic: 'https://avatar.iran.liara.run/public/8',
   },
   {
     id: 8,
@@ -70,7 +71,7 @@ export const NURSE_USERS = [
     second_surname: 'Morales',
     email: 'laura.sanchez@email.com',
     password: 'J6k7L8m9N0',
-    profile_pic: 'https://avatar.iran.liara.run/public/69'
+    profile_pic: 'https://avatar.iran.liara.run/public/69',
   },
   {
     id: 9,
@@ -79,7 +80,7 @@ export const NURSE_USERS = [
     second_surname: 'Hernández',
     email: 'laura.garcia@email.com',
     password: 'H4y7L4s7B0',
-    profile_pic: 'https://avatar.iran.liara.run/public/80'
+    profile_pic: 'https://avatar.iran.liara.run/public/80',
   },
   {
     id: 10,
@@ -88,6 +89,6 @@ export const NURSE_USERS = [
     second_surname: 'Mora',
     email: 'laura.jimenez@email.com',
     password: 'G9l1J7d5F1',
-    profile_pic: 'https://avatar.iran.liara.run/public/82'
+    profile_pic: 'https://avatar.iran.liara.run/public/82',
   },
 ];
