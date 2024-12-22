@@ -40,7 +40,7 @@
     <thead>
       <tr>
         <th>Id</th>
-        <th>Photo</th>
+        <th class="text-center">Profile Picture</th>
         <th>Name</th>
         <th>First Surname</th>
         <th>Second Surname</th>
@@ -50,7 +50,7 @@
     <tbody>
       <tr *ngFor="let nurse of nurses_users">
         <td>{{ nurse.id }}</td>
-        <td>
+        <td class="text-center">
           <img
             src="{{ nurse.profile_pic }}"
             class="img-fluid rounded"
