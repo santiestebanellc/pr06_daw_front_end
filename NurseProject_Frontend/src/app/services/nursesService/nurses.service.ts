@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { NURSE_USERS } from '../local-data/nurse-users';
-import { Nurse } from '../model/Nurse';
+import { NURSE_USERS } from '../../local-data/nurse-users';
+import { Nurse } from '../../model/Nurse';
 
 // type Parameter = 'id' | 'name' | 'first_surname' | 'second_surname' | 'email';
 

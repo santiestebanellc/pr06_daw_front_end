@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NursesService } from '../services/nurses.service';
+import { NursesService } from '../services/nursesService/nurses.service';
 
 @Component({
   selector: 'app-search-nurses-by-name',
