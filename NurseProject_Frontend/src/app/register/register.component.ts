@@ -23,6 +23,8 @@ export class RegisterComponent {
   constructor(private nursesService: NursesService) {}
 
   onSubmit(): void {
+    this.errorMessage = '';
+    this.successMessage = '';
     let newId = NURSE_USERS.length;
     const nurseData = {
       id: newId + 1,
@@ -33,6 +35,11 @@ export class RegisterComponent {
       password: this.password,
       profile_pic: 'https://avatar.iran.liara.run/public',
     };
-    this.nursesService.registerNurse(nurseData);
+    let isRegistered = this.nursesService.registerNurse(nurseData);
+    if (isRegistered) {
+      this.successMessage = 'Registered successfully!';
+    } else {
+      this.errorMessage = 'Invalid email or password.';
+    }
   }
 }

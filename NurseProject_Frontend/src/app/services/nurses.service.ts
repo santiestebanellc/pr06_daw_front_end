@@ -71,10 +71,14 @@ export class NursesService {
     return !!nurse;
   }
 
-  registerNurse(nurseData: any) {
-    if (nurseData) {
+  registerNurse(nurseData: any): boolean {
+    if (
+      nurseData &&
+      !NURSE_USERS.map((nurse) => nurse.email).includes(nurseData.email)
+    ) {
       NURSE_USERS.push(nurseData);
+      return true;
     }
-    console.log(NURSE_USERS);
+    return false;
   }
 }
