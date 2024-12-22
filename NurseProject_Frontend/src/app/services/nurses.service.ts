@@ -2,73 +2,83 @@ import { Injectable } from '@angular/core';
 import { NURSE_USERS } from '../local-data/nurse-users';
 import { Nurse } from '../model/Nurse';
 
+// type Parameter = 'id' | 'name' | 'first_surname' | 'second_surname' | 'email';
+
 @Injectable({
   providedIn: 'root',
 })
 export class NursesService {
   constructor() {}
-
-  nurse_users = NURSE_USERS;
-
-
   getNursesByParameter(parameter = '', input = '') {
+    let nurse_users = NURSE_USERS;
+
     switch (parameter) {
       case 'id':
         if (input !== null) {
-          this.nurse_users = NURSE_USERS.filter((nurse) => nurse.id === +input);
+          nurse_users = NURSE_USERS.filter((nurse) => nurse.id === +input);
         } else {
-          return this.nurse_users;
+          return nurse_users;
         }
         break;
       case 'name':
         if (input.trim() !== '') {
-          this.nurse_users = NURSE_USERS.filter((nurse) =>
+          nurse_users = NURSE_USERS.filter((nurse) =>
             nurse.name.toLowerCase().includes(input.toLowerCase())
           );
         } else {
-          return this.nurse_users;
+          return nurse_users;
         }
         break;
       case 'first_surname':
         if (input.trim() !== '') {
-          this.nurse_users = NURSE_USERS.filter((nurse) =>
+          nurse_users = NURSE_USERS.filter((nurse) =>
             nurse.first_surname.toLowerCase().includes(input.toLowerCase())
           );
         } else {
-          return this.nurse_users;
+          return nurse_users;
         }
         break;
       case 'second_surname':
         if (input.trim() !== '') {
-          this.nurse_users = NURSE_USERS.filter((nurse) =>
+          nurse_users = NURSE_USERS.filter((nurse) =>
             nurse.second_surname.toLowerCase().includes(input.toLowerCase())
           );
         } else {
-          return this.nurse_users;
+          return nurse_users;
         }
         break;
       case 'email':
         if (input.trim() !== '') {
-          this.nurse_users = NURSE_USERS.filter((nurse) =>
+          nurse_users = NURSE_USERS.filter((nurse) =>
             nurse.email.toLowerCase().includes(input.toLowerCase())
           );
         } else {
-          return this.nurse_users;
+          return nurse_users;
         }
         break;
     }
-    return this.nurse_users;
+    return nurse_users;
   }
 
   getNurses() {
-    return this.nurse_users;
+    return NURSE_USERS;
   }
 
- validateLogin(email: string, password: string): boolean {
-    const nurse = this.nurse_users.find(
+  validateLogin(email: string, password: string): boolean {
+    const nurse = NURSE_USERS.find(
       (n) => n.email === email && n.password === password
     );
-    return !!nurse; 
+    return !!nurse;
   }
 
+  registerNurse(nurseData: any): boolean {
+    if (
+      nurseData &&
+      !NURSE_USERS.map((nurse) => nurse.email).includes(nurseData.email)
+    ) {
+      NURSE_USERS.push(nurseData);
+      return true;
+    }
+    return false;
+  }
 }
