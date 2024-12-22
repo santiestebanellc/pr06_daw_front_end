@@ -1,17 +1,21 @@
-import { Component } from '@angular/core';
-import { NURSE_USERS } from '../local-data/nurse-users';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NursesService } from '../services/nurses.service';
 
 @Component({
   selector: 'app-list-all-nurses',
   imports: [CommonModule],
+  providers: [NursesService],
   templateUrl: './list-all-nurses.component.html',
   styleUrl: './list-all-nurses.component.css'
 })
-export class ListAllNursesComponent {
-  foundNurses = NURSE_USERS;
+export class ListAllNursesComponent implements OnInit {
+  constructor(private nursesService: NursesService) {}
 
-  listAllNurses() {
-    this.foundNurses = NURSE_USERS;
+  // datos obtained from services
+  nurses_users: any;
+
+  ngOnInit(): void {
+    this.nurses_users = this.nursesService.getNurses();
   }
 }
