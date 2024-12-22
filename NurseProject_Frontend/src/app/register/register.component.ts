@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NURSE_USERS } from '../local-data/nurse-users';
 import { NursesService } from '../services/nursesService/nurses.service';
 import { Nurse } from '../model/Nurse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private nursesService: NursesService) {}
+  constructor(private nursesService: NursesService, private router: Router) {}
 
   onSubmit(): void {
     this.errorMessage = '';
@@ -39,6 +40,9 @@ export class RegisterComponent {
     let isRegistered = this.nursesService.registerNurse(nurseData);
     if (isRegistered) {
       this.successMessage = 'Registered successfully!';
+      setTimeout(() => {
+        this.router.navigate(['/nurses-login']);
+      }, 2500);
     } else {
       this.errorMessage = 'Invalid email or password.';
     }
