@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { NURSE_USERS } from '../local-data/nurse-users';
 import { Nurse } from '../model/Nurse';
 
+// type Parameter = 'id' | 'name' | 'first_surname' | 'second_surname' | 'email';
+
 @Injectable({
   providedIn: 'root',
 })
 export class NursesService {
   constructor() {}
   getNursesByParameter(parameter = '', input = '') {
-    
     let nurse_users = NURSE_USERS;
 
     switch (parameter) {
@@ -63,17 +64,17 @@ export class NursesService {
     return NURSE_USERS;
   }
 
- validateLogin(email: string, password: string): boolean {
+  validateLogin(email: string, password: string): boolean {
     const nurse = NURSE_USERS.find(
       (n) => n.email === email && n.password === password
     );
-    return !!nurse; 
+    return !!nurse;
   }
 
-  registerNurse(nurseData: any){
-    NURSE_USERS.push(nurseData);
+  registerNurse(nurseData: any) {
+    if (nurseData) {
+      NURSE_USERS.push(nurseData);
+    }
     console.log(NURSE_USERS);
-    
   }
-
 }

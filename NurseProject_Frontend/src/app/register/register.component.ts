@@ -8,7 +8,7 @@ import { NursesService } from '../services/nurses.service';
   selector: 'app-register',
   imports: [CommonModule, FormsModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
   name: string = '';
@@ -19,18 +19,19 @@ export class RegisterComponent {
   confirmPassword: string = '';
   errorMessage: string = '';
   successMessage: string = '';
-  
+
   constructor(private nursesService: NursesService) {}
 
   onSubmit(): void {
+    let newId = NURSE_USERS.length;
     const nurseData = {
-      id: NURSE_USERS.length++,
+      id: newId + 1,
       name: this.name,
       first_surname: this.firstSurname,
       second_surname: this.secondSurname,
       email: this.email,
       password: this.password,
-      profile_pic: "https://avatar.iran.liara.run/public"
+      profile_pic: 'https://avatar.iran.liara.run/public',
     };
     this.nursesService.registerNurse(nurseData);
   }
