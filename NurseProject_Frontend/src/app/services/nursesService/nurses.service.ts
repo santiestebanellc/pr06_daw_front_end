@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { NURSE_USERS } from '../../local-data/nurse-users';
 import { Nurse } from '../../model/Nurse';
-
-// type Parameter = 'id' | 'name' | 'first_surname' | 'second_surname' | 'email';
-
+import { Observable, of } from 'rxjs';
+ 
 @Injectable({
   providedIn: 'root',
 })
 export class NursesService {
-  constructor() {}
+ 
+  private listallnurses = '/nurse/index';
+ 
+  constructor(private http: HttpClient) {}
+ 
+  getNurses(): Observable<any> {
+    return this.http.get(this.listallnurses);
+  }
+ 
+ 
   getNursesByParameter(parameter = '', input = '') {
     let nurse_users = NURSE_USERS;
-
+ 
     switch (parameter) {
       case 'id':
         if (input !== null) {
@@ -59,18 +68,15 @@ export class NursesService {
     }
     return nurse_users;
   }
-
-  getNurses() {
-    return NURSE_USERS;
-  }
-
+ 
   validateLogin(email: string, password: string): boolean {
     const nurse = NURSE_USERS.find(
       (nurse) => nurse.email === email && nurse.password === password
     );
     return !!nurse;
   }
-
+ 
+ 
   registerNurse(nurseData: Nurse): boolean {
     if (
       nurseData &&
@@ -82,3 +88,4 @@ export class NursesService {
     return false;
   }
 }
+ 
