@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NURSE_USERS } from '../local-data/nurse-users';
 import { NursesService } from '../services/nursesService/nurses.service';
-import { Nurse } from '../model/Nurse';
 import { Router } from '@angular/router';
+import { Nurse } from '../model/Nurse';
 
 @Component({
   selector: 'app-register',
@@ -27,24 +26,34 @@ export class RegisterComponent {
   onSubmit(): void {
     this.errorMessage = '';
     this.successMessage = '';
-    let newId = NURSE_USERS.length;
+
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Passwords do not match.';
+      return;
+    }
+
     const nurseData: Nurse = {
-      id: newId + 1,
+      id: 0,  
       name: this.name,
       first_surname: this.firstSurname,
       second_surname: this.secondSurname,
       email: this.email,
       password: this.password,
-      profile_pic: 'https://avatar.iran.liara.run/public',
+      profile_pic: 'https://avatar.iran.liara.run/public', 
     };
-    let isRegistered = this.nursesService.registerNurse(nurseData);
-    if (isRegistered) {
-      this.successMessage = 'Registered successfully!';
-      setTimeout(() => {
-        this.router.navigate(['/nurses-login']);
-      }, 2500);
-    } else {
-      this.errorMessage = 'Invalid email or password.';
-    }
+
+    this.nursesService.registerNurse(nurseData).subscribe(
+      (response: any) => {
+        if (response.success) {
+          this.successMessage = 'Registered successfully!';
+          setTimeout(() => {
+            this.router.navigate(['/nurses-login']);
+          }, 2500);
+        }
+      },
+      (error) => {
+        this.errorMessage = error.error?.error || 'An error occurred. Please try again.';
+      }
+    );
   }
 }

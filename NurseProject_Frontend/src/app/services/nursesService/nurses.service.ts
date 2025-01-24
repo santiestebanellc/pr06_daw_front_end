@@ -3,17 +3,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NURSE_USERS } from '../../local-data/nurse-users';
 import { Nurse } from '../../model/Nurse';
 import { Observable, of } from 'rxjs';
- 
+
+
 @Injectable({
   providedIn: 'root',
 })
 export class NursesService {
  
   private listallnurses = '/nurse/index';
-  // static header = new HttpHeaders({"Content-Type"})
- 
+  
   constructor(private http: HttpClient) {}
- 
+
   getNurses(): Observable<any> {
     return this.http.get(this.listallnurses, {
       headers: new HttpHeaders({
@@ -22,10 +22,10 @@ export class NursesService {
     });
   }
  
- 
+
   getNursesByParameter(parameter = '', input = '') {
     let nurse_users = NURSE_USERS;
- 
+
     switch (parameter) {
       case 'id':
         if (input !== null) {
@@ -73,24 +73,18 @@ export class NursesService {
     }
     return nurse_users;
   }
- 
+
   validateLogin(email: string, password: string): boolean {
     const nurse = NURSE_USERS.find(
       (nurse) => nurse.email === email && nurse.password === password
     );
     return !!nurse;
   }
- 
- 
-  registerNurse(nurseData: Nurse): boolean {
-    if (
-      nurseData &&
-      !NURSE_USERS.map((nurse) => nurse.email).includes(nurseData.email)
-    ) {
-      NURSE_USERS.push(nurseData);
-      return true;
-    }
-    return false;
+
+  registerNurse(nurseData: Nurse): Observable<any> {
+    const url = 'http://127.0.0.1:8000/nurse/';
+  
+    return this.http.post(url, nurseData);
   }
+
 }
- 
