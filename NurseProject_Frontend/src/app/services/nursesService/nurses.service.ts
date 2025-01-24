@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NURSE_USERS } from '../../local-data/nurse-users';
 import { Nurse } from '../../model/Nurse';
 import { Observable, of } from 'rxjs';
@@ -11,11 +11,15 @@ import { Observable, of } from 'rxjs';
 export class NursesService {
  
   private listallnurses = '/nurse/index';
-
+  
   constructor(private http: HttpClient) {}
 
   getNurses(): Observable<any> {
-    return this.http.get(this.listallnurses);
+    return this.http.get(this.listallnurses, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    });
   }
  
 
