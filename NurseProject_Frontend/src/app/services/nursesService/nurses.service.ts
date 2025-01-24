@@ -10,12 +10,12 @@ import { Observable, of } from 'rxjs';
 })
 export class NursesService {
  
-  private listallnurses = '/nurse/index';
+  private listAllNurses = '/nurse/index';
   
   constructor(private http: HttpClient) {}
 
   getNurses(): Observable<any> {
-    return this.http.get(this.listallnurses, {
+    return this.http.get(this.listAllNurses, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -82,7 +82,7 @@ export class NursesService {
   }
 
   registerNurse(nurseData: Nurse): Observable<any> {
-    const url = 'http://127.0.0.1:8000/nurse/';
+    const url = '/nurse/register';
   
     return this.http.post(url, nurseData);
   }
