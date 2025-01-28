@@ -28,16 +28,11 @@ export class LoginComponent {
     }
   }
 
-  login(): void {
-    this.isLoggedService.login();
-    this.router.navigate(['/list-all-nurses']);
-  }
-
   onSubmit() {
     const isValid = this.nursesService.validateLogin(this.email, this.password);
     if (isValid) {
       this.errorMessage = '';
-      this.login();
+      this.isLoggedService.login();
     } else {
       this.errorMessage = 'Invalid email or password.';
     }
