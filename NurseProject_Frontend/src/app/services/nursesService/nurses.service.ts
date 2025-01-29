@@ -72,8 +72,8 @@ export class NursesService {
   }
 
   validateLogin(email: string, password: string): Observable<any> {
-    const loginData = { email, password };
-    return this.http.post(this.loginnurse, loginData);
+    const url = this.loginnurse + '?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}';
+    return this.http.post(url, {});
   }
 
   registerNurse(nurseData: Nurse): Observable<any> {
