@@ -72,7 +72,7 @@ export class NursesService {
   }
 
   validateLogin(email: string, password: string): Observable<any> {
-    const url = this.loginnurse + '?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}';
+    const url = this.loginnurse + `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
     return this.http.post(url, {});
   }
 
