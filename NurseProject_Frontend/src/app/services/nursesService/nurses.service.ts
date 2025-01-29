@@ -11,6 +11,7 @@ import { Observable, of } from 'rxjs';
 export class NursesService {
  
   private listallnurses = '/nurse/index';
+  private loginnurse = '/nurse/login';
   
   constructor(private http: HttpClient) {}
 
@@ -70,11 +71,9 @@ export class NursesService {
     return nurse_users;
   }
 
-  validateLogin(email: string, password: string): boolean {
-    const nurse = NURSE_USERS.find(
-      (nurse) => nurse.email === email && nurse.password === password
-    );
-    return !!nurse;
+  validateLogin(email: string, password: string): Observable<any> {
+    const url = this.loginnurse + `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    return this.http.post(url, {});
   }
 
   registerNurse(nurseData: Nurse): Observable<any> {
