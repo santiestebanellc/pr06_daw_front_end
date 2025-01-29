@@ -5,6 +5,7 @@ import { ListAllNursesComponent } from './list-all-nurses/list-all-nurses.compon
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { IsLoggedGuard } from './guards/is-logged.guard';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,11 @@ export const routes: Routes = [
   {
     path: 'search-nurses-by-name',
     component: SearchNursesByNameComponent,
+    canActivate: [IsLoggedGuard],
+  },
+  {
+    path: 'user-profile',
+    component: UserProfileComponent,
     canActivate: [IsLoggedGuard],
   },
   {

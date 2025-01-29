@@ -26,6 +26,14 @@
           Search Nurse by Paramerter
         </button>
       </li>
+      <li *ngIf="isLogged" class="nav-item">
+        <button
+          [routerLink]="'user-profile'"
+          class="btn btn-link text-decoration-none text-dark nav-link active"
+        >
+          User Profile
+        </button>
+      </li>
       <li *ngIf="!isLogged" class="nav-item">
         <button
           [routerLink]="'nurses-login'"

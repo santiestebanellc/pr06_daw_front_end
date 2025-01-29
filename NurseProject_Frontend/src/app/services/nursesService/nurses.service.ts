@@ -83,4 +83,9 @@ export class NursesService {
     return this.http.post(url, nurseData);
   }
 
+  updateNurse(nurseData: Nurse): Observable<any> {
+    const url = `/nurse/edit/${nurseData.id}`; 
+    return this.http.put(url, nurseData);
+  }
+  
 }
