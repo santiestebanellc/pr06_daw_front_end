@@ -29,12 +29,21 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    const isValid = this.nursesService.validateLogin(this.email, this.password);
-    if (isValid) {
-      this.errorMessage = '';
-      this.isLoggedService.login();
-    } else {
-      this.errorMessage = 'Invalid email or password.';
-    }
+    this.nursesService.validateLogin(this.email, this.password).subscribe(
+      (response) => {
+        if (response.success) {
+          this.errorMessage = '';
+          this.isLoggedService.login();
+          this.router.navigate(['/list-all-nurses']);
+        } else {
+          this.errorMessage = 'Invalid email or password.';
+        }
+      },
+      (error) => {
+        this.errorMessage = 'Error connecting to server.';
+        console.error('Login error:', error);
+      }
+    );
   }
+
 }
