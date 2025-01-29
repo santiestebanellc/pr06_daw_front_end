@@ -1,94 +1,43 @@
-<div class="user-profile container mt-4">
-  <h2 class="mb-4">Perfil de Usuario</h2>
+<div class="user-profile container mt-5">
+  <h2 class="text-center mb-4 text-primary">Perfil de Usuario</h2>
 
-  <div class="profile-card card p-4">
+  <!-- Tarjeta de perfil -->
+  <div class="profile-card card shadow-sm p-4 rounded">
     <div class="d-flex align-items-center">
-      <img
-        [src]="selectedUser?.image || 'https://via.placeholder.com/100'"
-        alt="User Image"
-        class="rounded-circle"
-        style="width: 100px; height: 100px;"
-      />
-      <div class="ml-3">
-        <h4>{{ selectedUser?.name }} {{ selectedUser?.firstSurname }}</h4>
+      <div class="position-relative">
+        <img
+          [src]="selectedUser?.image || 'https://via.placeholder.com/150'"
+          alt="User Image"
+          class="rounded-circle profile-img"
+        />
+      </div>
+      <div class="ml-4">
+        <h4 class="mb-1 text-dark">{{ selectedUser?.name }} {{ selectedUser?.firstSurname }}</h4>
         <p class="text-muted">{{ selectedUser?.email }}</p>
       </div>
     </div>
   </div>
 
-  <!-- Formulario para editar usuario -->
-  <div class="edit-form mt-4">
-    <h3>Editar Perfil</h3>
-    <form #userForm="ngForm" (ngSubmit)="updateUser()">
+  <!-- Formulario de edición -->
+  <div class="edit-form mt-4 p-4 bg-light rounded shadow-sm">
+    <h3 class="mb-3 text-secondary">Editar Perfil</h3>
+    <form (ngSubmit)="updateUser()">
       <div class="form-group">
-        <label for="name">Nombre:</label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          [(ngModel)]="selectedUser.name"
-          name="name"
-          required
-        />
+        <label for="name" class="font-weight-bold">Nombre:</label>
+        <input type="text" id="name" class="form-control" [(ngModel)]="selectedUser.name" name="name" required />
       </div>
 
       <div class="form-group">
-        <label for="firstSurname">Primer Apellido:</label>
-        <input
-          type="text"
-          id="firstSurname"
-          class="form-control"
-          [(ngModel)]="selectedUser.firstSurname"
-          name="firstSurname"
-        />
+        <label for="firstSurname" class="font-weight-bold">Primer Apellido:</label>
+        <input type="text" id="firstSurname" class="form-control" [(ngModel)]="selectedUser.firstSurname" name="firstSurname" />
       </div>
 
       <div class="form-group">
-        <label for="secondSurname">Segundo Apellido:</label>
-        <input
-          type="text"
-          id="secondSurname"
-          class="form-control"
-          [(ngModel)]="selectedUser.secondSurname"
-          name="secondSurname"
-        />
+        <label for="email" class="font-weight-bold">Email:</label>
+        <input type="email" id="email" class="form-control" [(ngModel)]="selectedUser.email" name="email" required />
       </div>
 
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          [(ngModel)]="selectedUser.email"
-          name="email"
-          required
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="password">Nueva Contraseña:</label>
-        <input
-          type="password"
-          id="password"
-          class="form-control"
-          [(ngModel)]="selectedUser.password"
-          name="password"
-        />
-      </div>
-
-      <div class="form-group">
-        <label for="image">Imagen (URL o Base64):</label>
-        <input
-          type="text"
-          id="image"
-          class="form-control"
-          [(ngModel)]="selectedUser.image"
-          name="image"
-        />
-      </div>
-
-      <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">
+      <button type="submit" class="btn btn-primary btn-lg w-100 mt-3" [disabled]="!selectedUser.name || !selectedUser.email">
         Guardar cambios
       </button>
     </form>

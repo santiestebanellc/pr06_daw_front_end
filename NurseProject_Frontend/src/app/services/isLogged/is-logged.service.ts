@@ -23,4 +23,9 @@ export class IsLoggedService {
   isAuthenticated(): boolean {
     return this.isLoggedSubject.value;
   }
+
+  getUserData(): any {
+    return JSON.parse(localStorage.getItem('user') || '{}');
+  }
+
 }
