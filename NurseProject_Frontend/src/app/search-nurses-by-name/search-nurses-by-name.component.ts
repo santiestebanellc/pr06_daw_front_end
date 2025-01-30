@@ -16,9 +16,17 @@ export class SearchNursesByNameComponent implements OnInit {
   nurses_users: any;
 
   getNursesByParameter(parameter = '', value = '') {
-    this.nurses_users = this.nursesService.getNursesByParameter(
-      parameter,
-      value
+    console.log('hola');
+
+    this.nursesService.getNursesByParameter(parameter, value).subscribe(
+      (response) => {
+        console.log(response);
+
+        this.nurses_users = response;
+      },
+      (err) => {
+        console.log(err);
+      }
     );
   }
   ngOnInit(): void {
