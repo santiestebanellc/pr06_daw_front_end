@@ -39,13 +39,9 @@ export class NursesService {
     return this.http.get(url);
   }
 
-  validateLogin(email: string, password: string): Observable<any> {
-    const url =
-      this.loginnurse +
-      `?email=${encodeURIComponent(email)}&password=${encodeURIComponent(
-        password
-      )}`;
-    return this.http.post(url, {});
+  validateLogin(email: string, password: string): Observable<{ success: boolean; id: number }> {
+    const url = `${this.loginnurse}?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+    return this.http.post<{ success: boolean; id: number }>(url, {});
   }
 
   registerNurse(nurseData: Nurse): Observable<any> {

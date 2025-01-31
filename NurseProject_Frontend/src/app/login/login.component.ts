@@ -28,12 +28,11 @@ export class LoginComponent {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.nursesService.validateLogin(this.email, this.password).subscribe(
       (response) => {
         if (response.success) {
-          this.errorMessage = '';
-          this.isLoggedService.login();
+          this.isLoggedService.login(response.id);
           this.router.navigate(['/list-all-nurses']);
         } else {
           this.errorMessage = 'Invalid email or password.';
@@ -45,5 +44,4 @@ export class LoginComponent {
       }
     );
   }
-
 }

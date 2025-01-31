@@ -31,7 +31,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadUser(): void {
-    this.selectedUser = this.isLoggedService.getUserData();
+    //this.selectedUser = this.isLoggedService.getUserData();
     this.userForm.patchValue(this.selectedUser); 
   }
 
