@@ -10,19 +10,19 @@ import { NursesService } from '../services/nursesService/nurses.service';
   styleUrls: ['./list-all-nurses.component.css'],
 })
 export class ListAllNursesComponent implements OnInit {
-  nurses_users: any = [];
+  nurses_users: any = [];  
 
   constructor(private nursesService: NursesService) {}
 
   ngOnInit(): void {
     this.nursesService.getNurses().subscribe(
       (data) => {
-        this.nurses_users = data;
+        console.log('Datos de los enfermeros:', data);
+        this.nurses_users = data;  
       },
       (error) => {
-        console.error('Error fetching nurses:', error);
+        console.error('Error al obtener los enfermeros:', error);
       }
     );
   }
 }
- 

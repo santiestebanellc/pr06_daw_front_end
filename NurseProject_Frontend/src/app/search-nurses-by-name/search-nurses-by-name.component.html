@@ -2,16 +2,8 @@
   <h2>Search Nurses</h2>
   <div class="d-flex">
     <div class="d-flex gap-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        height="24px"
-        viewBox="0 -960 960 960"
-        width="24px"
-        fill="#5f6368"
-      >
-        <path
-          d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368">
+        <path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z" />
       </svg>
       <p>Filter by:</p>
       <select name="field" id="field" #parameter class="px-2 rounded-4 col-2">
@@ -21,7 +13,7 @@
         <option value="second_surname">second surname</option>
         <option value="email">email</option>
       </select>
-      <input class="px-2 rounded-4" type="text" placeholder="" #nameInput />
+      <input class="px-2 rounded-4" type="text" placeholder="Enter value" #nameInput />
     </div>
 
     <button
@@ -32,6 +24,7 @@
       Search
     </button>
   </div>
+
   <table
     class="table table-bordered"
     id="nurseByNameResult"
@@ -40,7 +33,6 @@
     <thead>
       <tr>
         <th>Id</th>
-        <th class="text-center">Profile Picture</th>
         <th>Name</th>
         <th>First Surname</th>
         <th>Second Surname</th>
@@ -50,13 +42,6 @@
     <tbody>
       <tr *ngFor="let nurse of nurses_users">
         <td>{{ nurse.id }}</td>
-        <td class="text-center">
-          <img
-            src="{{ nurse.profile_pic }}"
-            class="img-fluid rounded"
-            style="width: 50px; height: 50px; object-fit: cover"
-          />
-        </td>
         <td>{{ nurse.name }}</td>
         <td>{{ nurse.first_surname }}</td>
         <td>{{ nurse.second_surname }}</td>
@@ -66,6 +51,6 @@
   </table>
 
   <ng-template #noResults>
-    <p>Nurse not found</p>
+    <p>No nurse found matching the search criteria</p>
   </ng-template>
 </div>
