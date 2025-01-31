@@ -12,13 +12,14 @@ export class NursesService {
   private listallnurses = '/nurse/index';
   private loginnurse = '/nurse/login';
   private findNurse = '/nurse/find';
+  
 
   constructor(private http: HttpClient) {}
 
   getNurses(): Observable<any[]> {
     return this.http.get<any[]>(this.listallnurses).pipe(
       map((nurses) => {
-        console.log('Datos recibidos:', nurses); 
+        console.log('Datos recibidos de todos los enfermeros:', nurses); 
         return nurses.map((nurse) => ({
           ...nurse,
           profile_pic: this.formatImage(nurse.image), 
@@ -28,15 +29,22 @@ export class NursesService {
   }
   
   private formatImage(image: any): string {
-    if (!image) return 'assets/default-profile.png'; 
-    if (typeof image === 'string' && image.startsWith('data:image')) return image;
-    return `data:image/png;base64,${image}`; 
+    if (typeof image === 'string' && image.startsWith('data:image')) return image; 
+    return `data:image/png;base64,${image}`;
   }
   
 
-  getNursesByParameter(parameter = '', input = '') {
-    const url = this.findNurse + '/' + parameter + '/' + input;
-    return this.http.get(url);
+  getNursesByParameter(parameter = '', input = ''): Observable<any[]> {
+    const url = `${this.findNurse}/${parameter}/${input}`;
+    return this.http.get<any[]>(url).pipe(
+      map((nurses) => {
+        console.log('Datos de búsqueda de enfermeros:', nurses);
+        return nurses.map((nurse) => ({
+          ...nurse,
+          profile_pic: this.formatImage(nurse.image), 
+        }));
+      })
+    );
   }
 
   validateLogin(email: string, password: string): Observable<{ success: boolean; id: number }> {
