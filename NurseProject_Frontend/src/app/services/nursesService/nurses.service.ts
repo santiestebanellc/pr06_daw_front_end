@@ -56,4 +56,10 @@ export class NursesService {
     const url = '/nurse/register';
     return this.http.post(url, nurseData);
   }
+
+  deleteNurse(id: number): Observable<{ message: string }> {
+    const url = `/nurse/delete/${id}`;
+    return this.http.delete<{ message: string }>(url);
+  }
+
 }

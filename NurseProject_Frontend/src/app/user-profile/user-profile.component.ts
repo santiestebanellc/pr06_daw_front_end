@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IsLoggedService } from '../services/isLogged/is-logged.service';
+import { NursesService } from '../services/nursesService/nurses.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -15,7 +16,11 @@ export class UserProfileComponent implements OnInit {
   userForm: FormGroup;
   selectedUser: any;
 
-  constructor(private isLoggedService: IsLoggedService, private fb: FormBuilder) {
+  constructor(
+    private isLoggedService: IsLoggedService,
+    private nursesService: NursesService,
+    private fb: FormBuilder
+  ) {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       firstSurname: [''],
@@ -31,8 +36,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadUser(): void {
-    //this.selectedUser = this.isLoggedService.getUserData();
-    this.userForm.patchValue(this.selectedUser); 
+    // this.selectedUser = this.isLoggedService.getUserData();
+    this.userForm.patchValue(this.selectedUser);
   }
 
   updateUser(): void {
@@ -55,9 +60,24 @@ export class UserProfileComponent implements OnInit {
 
   confirmDelete(): void {
     if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
-      console.log('Cuenta eliminada');
-      alert('Cuenta eliminada correctamente');
-      // Aqui hay que poner que se elimine la cuenta con el endpoint y que envie a la pagina de login y registro .... OS LO DEJO EN VUESTRAS MANOS AKISHA Y MONICAAAAAAAAA
+      const userId = this.isLoggedService.getUserId();
+
+      if (userId) {
+        this.nursesService.deleteNurse(userId).subscribe(
+          (response) => {
+            console.log(response.message); // "Nurse deleted successfully"
+            alert('Cuenta eliminada correctamente');
+
+            this.isLoggedService.logout(); // ✅ Cierra sesión
+          },
+          (error) => {
+            console.error('Error al eliminar cuenta:', error);
+            alert('Error al eliminar la cuenta. Inténtalo de nuevo.');
+          }
+        );
+      } else {
+        alert('Error: No se encontró el ID del usuario.');
+      }
     }
   }
 }
