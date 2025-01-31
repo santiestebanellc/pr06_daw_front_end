@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { NURSE_USERS } from '../../local-data/nurse-users';
 import { Nurse } from '../../model/Nurse';
-import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,24 @@ export class NursesService {
 
   constructor(private http: HttpClient) {}
 
-  getNurses(): Observable<any> {
-    return this.http.get(this.listallnurses);
+  getNurses(): Observable<any[]> {
+    return this.http.get<any[]>(this.listallnurses).pipe(
+      map((nurses) => {
+        console.log('Datos recibidos:', nurses); 
+        return nurses.map((nurse) => ({
+          ...nurse,
+          profile_pic: this.formatImage(nurse.image), 
+        }));
+      })
+    );
   }
+  
+  private formatImage(image: any): string {
+    if (!image) return 'assets/default-profile.png'; 
+    if (typeof image === 'string' && image.startsWith('data:image')) return image;
+    return `data:image/png;base64,${image}`; 
+  }
+  
 
   getNursesByParameter(parameter = '', input = '') {
     const url = this.findNurse + '/' + parameter + '/' + input;
@@ -34,7 +50,6 @@ export class NursesService {
 
   registerNurse(nurseData: Nurse): Observable<any> {
     const url = '/nurse/register';
-
     return this.http.post(url, nurseData);
   }
 }
