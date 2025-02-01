@@ -4,60 +4,115 @@
   <!-- Tarjeta de perfil -->
   <div class="card shadow-sm p-4 rounded border-0 bg-white text-dark">
     <div class="d-flex align-items-center">
-      <img [src]="selectedUser?.image ? 'data:image/jpeg;base64,' + selectedUser.image : 'https://via.placeholder.com/150'" 
-           alt="User Image" class="rounded-circle border profile-img me-3" width="80" height="80">
+      <img
+        [src]="
+          selectedUser?.image
+            ? 'data:image/jpeg;base64,' + selectedUser.image
+            : 'https://via.placeholder.com/150'
+        "
+        alt="User Image"
+        class="rounded-circle border profile-img me-3"
+        width="80"
+        height="80"
+      />
       <div>
-        <h4 class="mb-1 fw-normal">{{ selectedUser?.name }} {{ selectedUser?.firstSurname }} {{ selectedUser?.secondSurname }}</h4>
+        <h4 class="mb-1 fw-normal">
+          {{ selectedUser?.name }} {{ selectedUser?.first_surname }}
+          {{ selectedUser?.second_surname }}
+        </h4>
         <p class="text-muted mb-0 small">{{ selectedUser?.email }}</p>
       </div>
     </div>
   </div>
-  <br>
+  <br />
   <!-- Formulario de edición -->
   <div class="card shadow-sm p-4 rounded border-0 bg-white text-dark mb-10">
     <h3 class="mb-3 fw-light">Editar Perfil</h3>
-    <form (ngSubmit)="updateUser()" [formGroup]="userForm"> 
+    <form (ngSubmit)="updateUser()" [formGroup]="userForm">
       <div class="mb-3">
         <label for="name" class="form-label small">Nombre</label>
-        <input type="text" id="name" class="form-control border-1 border-bottom rounded-1" formControlName="name" required>
+        <input
+          type="text"
+          id="name"
+          class="form-control border-1 border-bottom rounded-1"
+          formControlName="name"
+          required
+        />
       </div>
 
       <div class="mb-3">
-        <label for="firstSurname" class="form-label small">Primer Apellido</label>
-        <input type="text" id="firstSurname" class="form-control border-1 border-bottom rounded-1" formControlName="firstSurname">
+        <label for="first_surname" class="form-label small"
+          >Primer Apellido</label
+        >
+        <input
+          type="text"
+          id="first_surname"
+          class="form-control border-1 border-bottom rounded-1"
+          formControlName="first_surname"
+        />
       </div>
 
       <div class="mb-3">
-        <label for="secondSurname" class="form-label small">Segundo Apellido</label>
-        <input type="text" id="secondSurname" class="form-control border-1 border-bottom rounded-1" formControlName="secondSurname">
+        <label for="second_surname" class="form-label small"
+          >Segundo Apellido</label
+        >
+        <input
+          type="text"
+          id="second_surname"
+          class="form-control border-1 border-bottom rounded-1"
+          formControlName="second_surname"
+        />
       </div>
 
       <div class="mb-3">
         <label for="email" class="form-label small">Email</label>
-        <input type="email" id="email" class="form-control border-1 border-bottom rounded-1" formControlName="email" required>
+        <input
+          type="email"
+          id="email"
+          class="form-control border-1 border-bottom rounded-1"
+          formControlName="email"
+          required
+        />
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label small">Contraseña</label>
-        <input type="password" id="password" class="form-control border-1 border-bottom rounded-1" formControlName="password">
+        <input
+          type="password"
+          id="password"
+          class="form-control border-1 border-bottom rounded-1"
+          formControlName="password"
+        />
       </div>
 
       <div class="mb-3">
         <label for="image" class="form-label small">Imagen de perfil</label>
-        <input type="file" id="image" class="form-control border-1 border-bottom rounded-1" (change)="onFileChange($event)">
+        <input
+          type="file"
+          id="image"
+          class="form-control border-1 border-bottom rounded-1"
+          (change)="onFileChange($event)"
+        />
       </div>
 
-      <button type="submit" class="px-3 rounded-2 border-0 col-2 bg-warning" [disabled]="userForm.invalid">
+      <button
+        type="submit"
+        class="px-3 rounded-2 border-0 col-2 bg-warning"
+        [disabled]="userForm.invalid"
+      >
         Guardar cambios
       </button>
     </form>
   </div>
-  
+
   <!-- Botón de eliminar cuenta -->
   <div class="card shadow-sm p-4 rounded border-0 bg-white text-dark">
     <h5 class="mb-3 fw-light">Quieres eliminar la cuenta</h5>
-    <button class="btn btn-danger btn-sm fw-light rounded-2 col-2 " (click)="confirmDelete()">
+    <button
+      class="btn btn-danger btn-sm fw-light rounded-2 col-2"
+      (click)="confirmDelete()"
+    >
       Eliminar Cuenta
-    </button>    
+    </button>
   </div>
 </div>

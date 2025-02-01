@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { NURSE_USERS } from '../../local-data/nurse-users';
 import { Nurse } from '../../model/Nurse';
 
 @Injectable({
@@ -12,27 +11,26 @@ export class NursesService {
   private listallnurses = '/nurse/index';
   private loginnurse = '/nurse/login';
   private findNurse = '/nurse/find';
-  
 
   constructor(private http: HttpClient) {}
 
   getNurses(): Observable<any[]> {
     return this.http.get<any[]>(this.listallnurses).pipe(
       map((nurses) => {
-        console.log('Datos recibidos de todos los enfermeros:', nurses); 
+        console.log('Datos recibidos de todos los enfermeros:', nurses);
         return nurses.map((nurse) => ({
           ...nurse,
-          profile_pic: this.formatImage(nurse.image), 
+          profile_pic: this.formatImage(nurse.image),
         }));
       })
     );
   }
-  
+
   private formatImage(image: any): string {
-    if (typeof image === 'string' && image.startsWith('data:image')) return image; 
+    if (typeof image === 'string' && image.startsWith('data:image'))
+      return image;
     return `data:image/png;base64,${image}`;
   }
-  
 
   getNursesByParameter(parameter = '', input = ''): Observable<any[]> {
     const url = `${this.findNurse}/${parameter}/${input}`;
@@ -41,14 +39,19 @@ export class NursesService {
         console.log('Datos de búsqueda de enfermeros:', nurses);
         return nurses.map((nurse) => ({
           ...nurse,
-          profile_pic: this.formatImage(nurse.image), 
+          profile_pic: this.formatImage(nurse.image),
         }));
       })
     );
   }
 
-  validateLogin(email: string, password: string): Observable<{ success: boolean; id: number }> {
-    const url = `${this.loginnurse}?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+  validateLogin(
+    email: string,
+    password: string
+  ): Observable<{ success: boolean; id: number }> {
+    const url = `${this.loginnurse}?email=${encodeURIComponent(
+      email
+    )}&password=${encodeURIComponent(password)}`;
     return this.http.post<{ success: boolean; id: number }>(url, {});
   }
 
@@ -61,5 +64,4 @@ export class NursesService {
     const url = `/nurse/delete/${id}`;
     return this.http.delete<{ message: string }>(url);
   }
-
 }
