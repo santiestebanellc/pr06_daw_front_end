@@ -8,14 +8,14 @@ import { Nurse } from '../../model/Nurse';
   providedIn: 'root',
 })
 export class NursesService {
-  private listallnurses = '/nurse/index';
-  private loginnurse = '/nurse/login';
+  private listAllNurses = '/nurse/index';
+  private loginNurse = '/nurse/login';
   private findNurse = '/nurse/find';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getNurses(): Observable<any[]> {
-    return this.http.get<any[]>(this.listallnurses).pipe(
+    return this.http.get<any[]>(this.listAllNurses).pipe(
       map((nurses) => {
         console.log('Datos recibidos de todos los enfermeros:', nurses);
         return nurses.map((nurse) => ({
@@ -49,7 +49,7 @@ export class NursesService {
     email: string,
     password: string
   ): Observable<{ success: boolean; id: number }> {
-    const url = `${this.loginnurse}?email=${encodeURIComponent(
+    const url = `${this.loginNurse}?email=${encodeURIComponent(
       email
     )}&password=${encodeURIComponent(password)}`;
     return this.http.post<{ success: boolean; id: number }>(url, {});
@@ -63,5 +63,10 @@ export class NursesService {
   deleteNurse(id: number): Observable<{ message: string }> {
     const url = `/nurse/delete/${id}`;
     return this.http.delete<{ message: string }>(url);
+  }
+
+  updateNurse(nurseData: Nurse): Observable<{ message: string }> {
+    const url = '/nurse/edit';
+    return this.http.put<{ message: string }>(url, nurseData);
   }
 }

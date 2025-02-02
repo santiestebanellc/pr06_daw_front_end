@@ -41,7 +41,7 @@ export class UserDataService {
     return this.userSubject.asObservable();
   }
 
-  updateUser(): Observable<User | null> {
-    return this.userSubject.asObservable();
+  updateUser(updatedUser: User): void {
+    this.userSubject.next(updatedUser);
   }
 }
