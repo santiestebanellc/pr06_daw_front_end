@@ -5,6 +5,7 @@ import { NursesService } from '../services/nursesService/nurses.service';
 import { UserDataService } from '../services/userService/user-data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Nurse } from '../model/Nurse';
 
 @Component({
   selector: 'app-user-profile',
@@ -41,7 +42,7 @@ export class UserProfileComponent implements OnInit {
     this.userDataService.getUser().subscribe(
       (user) => {
         if (user) {
-          this.selectedUser = user; // Almacena el usuario seleccionado
+          this.selectedUser = user;
           this.userForm.patchValue({
             name: user.name,
             first_surname: user.first_surname,
@@ -50,7 +51,7 @@ export class UserProfileComponent implements OnInit {
             password: user.password,
             image: user.image,
           });
-          console.log('Datos del usuario cargados:', user); // Para depuración
+          console.log('Datos del usuario cargados:', user);
         } else {
           console.warn('No se encontraron datos del usuario.');
         }
@@ -63,8 +64,24 @@ export class UserProfileComponent implements OnInit {
 
   updateUser(): void {
     if (this.userForm.valid) {
-      console.log('Usuario actualizado:', this.userForm.value);
-      alert('Usuario actualizado correctamente');
+      const updatedUser = {
+        id: this.selectedUser.id, 
+        name: this.userForm.value.name,
+        first_surname: this.userForm.value.first_surname,
+        second_surname: this.userForm.value.second_surname,
+        email: this.userForm.value.email,
+        password: this.userForm.value.password,
+        profile_pic: this.userForm.value.image, 
+      };
+
+      this.nursesService.updateNurse(updatedUser).subscribe(
+        (response) => {
+          console.log('Usuario actualizado:', response);
+        },
+        (error) => {
+          console.error('Error al actualizar el usuario:', error);
+        }
+      );
     }
   }
 
@@ -73,11 +90,13 @@ export class UserProfileComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.userForm.patchValue({ image: reader.result });
+        const base64Image = reader.result as string;
+        this.userForm.patchValue({ image: base64Image.split(',')[1] }); // Envía solo la parte base64
       };
       reader.readAsDataURL(file);
     }
   }
+
 
   confirmDelete(): void {
     if (
