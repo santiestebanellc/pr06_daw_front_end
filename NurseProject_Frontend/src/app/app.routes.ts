@@ -5,7 +5,7 @@ import { ListAllNursesComponent } from './list-all-nurses/list-all-nurses.compon
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { IsLoggedGuard } from './guards/is-logged.guard';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from './nurse-profile/nurse-profile.component';
 
 export const routes: Routes = [
   {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IsLoggedService } from '../services/isLogged/is-logged.service';
 import { NursesService } from '../services/nursesService/nurses.service';
-import { UserDataService } from '../services/userService/user-data.service';
+import { NurseDataService } from '../services/nurseDataService/nurse-data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Nurse } from '../model/Nurse';
@@ -11,8 +11,8 @@ import { Nurse } from '../model/Nurse';
   selector: 'app-user-profile',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css'],
+  templateUrl: './nurse-profile.component.html',
+  styleUrls: ['./nurse-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
   userForm: FormGroup;
@@ -20,7 +20,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private isLoggedService: IsLoggedService,
-    private userDataService: UserDataService,
+    private userDataService: NurseDataService,
     private nursesService: NursesService,
     private fb: FormBuilder
   ) {
@@ -39,19 +39,19 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadUser(): void {
-    this.userDataService.getUser().subscribe(
-      (user) => {
-        if (user) {
-          this.selectedUser = user;
+    this.userDataService.getNurse().subscribe(
+      (nurse) => {
+        if (nurse) {
+          this.selectedUser = nurse;
           this.userForm.patchValue({
-            name: user.name,
-            first_surname: user.first_surname,
-            second_surname: user.second_surname,
-            email: user.email,
-            password: user.password,
-            image: user.image,
+            name: nurse.name,
+            first_surname: nurse.first_surname,
+            second_surname: nurse.second_surname,
+            email: nurse.email,
+            password: nurse.password,
+            profile_pic: nurse.profile_pic,
           });
-          console.log('Datos del usuario cargados:', user);
+          console.log('Datos del usuario cargados:', nurse);
         } else {
           console.warn('No se encontraron datos del usuario.');
         }
@@ -62,20 +62,16 @@ export class UserProfileComponent implements OnInit {
     );
   }
 
-  updateUser(): void {
+  updateNurse(): void {
     if (this.userForm.valid) {
-      const updatedUser = {
-        id: this.selectedUser.id, 
-        name: this.userForm.value.name,
-        first_surname: this.userForm.value.first_surname,
-        second_surname: this.userForm.value.second_surname,
-        email: this.userForm.value.email,
-        password: this.userForm.value.password,
-        profile_pic: this.userForm.value.image, 
+      const updatedUser: Nurse = {
+        id: this.selectedUser.id,
+        ...this.userForm.value,
       };
 
       this.nursesService.updateNurse(updatedUser).subscribe(
         (response) => {
+          this.userDataService.updateNurse(updatedUser);
           console.log('Usuario actualizado:', response);
         },
         (error) => {
@@ -96,7 +92,6 @@ export class UserProfileComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-
 
   confirmDelete(): void {
     if (

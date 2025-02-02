@@ -11,8 +11,9 @@ export class NursesService {
   private listAllNurses = '/nurse/index';
   private loginNurse = '/nurse/login';
   private findNurse = '/nurse/find';
+  private editNurse = '/nurse/edit';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getNurses(): Observable<any[]> {
     return this.http.get<any[]>(this.listAllNurses).pipe(
@@ -64,9 +65,7 @@ export class NursesService {
     const url = `/nurse/delete/${id}`;
     return this.http.delete<{ message: string }>(url);
   }
-
   updateNurse(nurseData: Nurse): Observable<{ message: string }> {
-    const url = '/nurse/edit';
-    return this.http.put<{ message: string }>(url, nurseData);
+    return this.http.put<{ message: string }>(this.editNurse, nurseData);
   }
 }

@@ -2,46 +2,37 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NursesService } from '../nursesService/nurses.service';
 import { IsLoggedService } from '../isLogged/is-logged.service';
-
-export interface User {
-  id: number;
-  name: string;
-  first_surname: string;
-  second_surname: string;
-  email: string;
-  password: string;
-  image: string;
-}
+import { Nurse } from '../../model/Nurse';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserDataService {
-  private userSubject = new BehaviorSubject<User | null>(null);
-  userSubject$ = this.userSubject.asObservable();
+export class NurseDataService {
+  private nurseSubject = new BehaviorSubject<Nurse | null>(null);
+  nurseSubject$ = this.nurseSubject.asObservable();
 
   constructor(
     private nursesService: NursesService,
     private isLoggedService: IsLoggedService
   ) {}
 
-  getUser(): Observable<User | null> {
+  getNurse(): Observable<Nurse | null> {
     this.nursesService
       .getNursesByParameter('id', this.isLoggedService.getUserId()?.toString())
       .subscribe(
         (nurses) => {
           if (nurses.length > 0) {
-            this.userSubject.next(nurses[0]);
+            this.nurseSubject.next(nurses[0]);
           }
         },
         (error) => {
           console.error('Error al obtener los datos del usuario:', error);
         }
       );
-    return this.userSubject.asObservable();
+    return this.nurseSubject.asObservable();
   }
 
-  updateUser(updatedUser: User): void {
-    this.userSubject.next(updatedUser);
+  updateNurse(updatedNurse: Nurse): void {
+    this.nurseSubject.next(updatedNurse);
   }
 }
