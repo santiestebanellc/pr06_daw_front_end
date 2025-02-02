@@ -2,15 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IsLoggedService } from '../services/isLogged/is-logged.service';
 import { NursesService } from '../services/nursesService/nurses.service';
+import { NurseDataService } from '../services/nurseDataService/nurse-data.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Nurse } from '../model/Nurse';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css'],
+  templateUrl: './nurse-profile.component.html',
+  styleUrls: ['./nurse-profile.component.css'],
 })
 export class UserProfileComponent implements OnInit {
   userForm: FormGroup;
@@ -18,13 +20,14 @@ export class UserProfileComponent implements OnInit {
 
   constructor(
     private isLoggedService: IsLoggedService,
+    private userDataService: NurseDataService,
     private nursesService: NursesService,
     private fb: FormBuilder
   ) {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
-      firstSurname: [''],
-      secondSurname: [''],
+      first_surname: [''],
+      second_surname: [''],
       email: ['', [Validators.required, Validators.email]],
       password: [''],
       image: [''],
@@ -36,14 +39,45 @@ export class UserProfileComponent implements OnInit {
   }
 
   loadUser(): void {
-    // this.selectedUser = this.isLoggedService.getUserData();
-    this.userForm.patchValue(this.selectedUser);
+    this.userDataService.getNurse().subscribe(
+      (nurse) => {
+        if (nurse) {
+          this.selectedUser = nurse;
+          this.userForm.patchValue({
+            name: nurse.name,
+            first_surname: nurse.first_surname,
+            second_surname: nurse.second_surname,
+            email: nurse.email,
+            password: nurse.password,
+            profile_pic: nurse.profile_pic,
+          });
+          console.log('Datos del usuario cargados:', nurse);
+        } else {
+          console.warn('No se encontraron datos del usuario.');
+        }
+      },
+      (error) => {
+        console.error('Error al cargar los datos del usuario:', error);
+      }
+    );
   }
 
-  updateUser(): void {
+  updateNurse(): void {
     if (this.userForm.valid) {
-      console.log('Usuario actualizado:', this.userForm.value);
-      alert('Usuario actualizado correctamente');
+      const updatedUser: Nurse = {
+        id: this.selectedUser.id,
+        ...this.userForm.value,
+      };
+
+      this.nursesService.updateNurse(updatedUser).subscribe(
+        (response) => {
+          this.userDataService.updateNurse(updatedUser);
+          console.log('Usuario actualizado:', response);
+        },
+        (error) => {
+          console.error('Error al actualizar el usuario:', error);
+        }
+      );
     }
   }
 
@@ -52,14 +86,19 @@ export class UserProfileComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        this.userForm.patchValue({ image: reader.result });
+        const base64Image = reader.result as string;
+        this.userForm.patchValue({ image: base64Image.split(',')[1] }); // Envía solo la parte base64
       };
       reader.readAsDataURL(file);
     }
   }
 
   confirmDelete(): void {
-    if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+    if (
+      confirm(
+        '¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.'
+      )
+    ) {
       const userId = this.isLoggedService.getUserId();
 
       if (userId) {
@@ -68,7 +107,7 @@ export class UserProfileComponent implements OnInit {
             console.log(response.message); // "Nurse deleted successfully"
             alert('Cuenta eliminada correctamente');
 
-            this.isLoggedService.logout(); // ✅ Cierra sesión
+            this.isLoggedService.logout(); // Cierra sesión
           },
           (error) => {
             console.error('Error al eliminar cuenta:', error);

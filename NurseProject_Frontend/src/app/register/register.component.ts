@@ -13,8 +13,8 @@ import { Nurse } from '../model/Nurse';
 })
 export class RegisterComponent {
   name: string = '';
-  firstSurname: string = '';
-  secondSurname: string = '';
+  first_surname: string = '';
+  second_surname: string = '';
   email: string = '';
   password: string = '';
   confirmPassword: string = '';
@@ -33,13 +33,13 @@ export class RegisterComponent {
     }
 
     const nurseData: Nurse = {
-      id: 0,  
+      id: 0,
       name: this.name,
-      first_surname: this.firstSurname,
-      second_surname: this.secondSurname,
+      first_surname: this.first_surname,
+      second_surname: this.second_surname,
       email: this.email,
       password: this.password,
-      profile_pic: 'https://avatar.iran.liara.run/public', 
+      profile_pic: 'https://avatar.iran.liara.run/public',
     };
 
     this.nursesService.registerNurse(nurseData).subscribe(
@@ -52,7 +52,8 @@ export class RegisterComponent {
         }
       },
       (error) => {
-        this.errorMessage = error.error?.error || 'An error occurred. Please try again.';
+        this.errorMessage =
+          error.error?.error || 'An error occurred. Please try again.';
       }
     );
   }

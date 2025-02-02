@@ -6,22 +6,24 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class IsLoggedService {
-  private isLoggedSubject = new BehaviorSubject<boolean>(this.isAuthenticated()); // ✅ Inicializa con el estado actual
-  isLogged$ = this.isLoggedSubject.asObservable(); // ✅ Observable para suscribirse a cambios
+  private isLoggedSubject = new BehaviorSubject<boolean>(
+    this.isAuthenticated()
+  ); // Inicializa con el estado actual
+  isLogged$ = this.isLoggedSubject.asObservable(); // Observable para suscribirse a cambios
 
   constructor(private router: Router) {}
 
   login(userId: number): void {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('userId', userId.toString());
-    this.isLoggedSubject.next(true); // ✅ Notifica que el usuario está autenticado
+    this.isLoggedSubject.next(true); // Notifica que el usuario está autenticado
     this.router.navigate(['/list-all-nurses']);
   }
 
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userId');
-    this.isLoggedSubject.next(false); // ✅ Notifica que el usuario cerró sesión
+    this.isLoggedSubject.next(false); // Notifica que el usuario cerró sesión
     this.router.navigate(['/home']);
   }
 
